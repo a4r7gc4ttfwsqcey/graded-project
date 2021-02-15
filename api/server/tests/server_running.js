@@ -6,7 +6,7 @@ chai.use(chaihttp)
 chai.should()
 
 describe('Check for status 200 at /', () => {
-    it('should return 200', (done) => {
+    it('API should return 200', (done) => {
         chai.request(app)
         .get('/')
         .end((err, res) => {

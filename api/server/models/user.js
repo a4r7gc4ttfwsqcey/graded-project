@@ -1,5 +1,4 @@
-const { Int32 } = require('bson')
-const { SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS } = require('constants')
+const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema({
@@ -12,14 +11,18 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, 'Password is required for User'],
-        maxlength: [32, 'Username cannot exceed 64 characters'],
-        minlength: [4, 'Username must be more than 8 characters']
+        required: [true, 'Password is required for User']
     }
 },{
     timestamps: true
 })
 
+userSchema.pre('save', async function(next) {
+    if (! this.isModified('password')) next()
+    this.password = await bcrypt.hash(this.password, 10)
+    next()
+  });
+
 const User = mongoose.model('user', userSchema)
 
-exports = User
+module.exports = User
