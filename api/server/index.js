@@ -1,11 +1,19 @@
+require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const app = express()
+const db = require('./utils/db')
 
 app.get('/', function(req, res) {
-    return res.json({
-        message: 'Hello'
-    })
+    try{
+        return res.json({
+            message: 'API'
+        })
+    } catch (e) {
+        return res.status(500).json({
+            message: 'Internal Server Error'
+        })
+    }
 })
 
 app.listen(5000, function() {
