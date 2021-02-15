@@ -11,3 +11,5 @@ app.get('/', function(req, res) {
 app.listen(5000, function() {
     console.log('server started at port 5000')
 })
+
+module.exports = app
