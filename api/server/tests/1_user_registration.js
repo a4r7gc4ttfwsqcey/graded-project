@@ -17,16 +17,26 @@ describe('Register user at /user', () => {
             done()
         })
     })
-    //Test incorrect input (too short)
-    it('API should return 500', (done) => {
+    //Test too short username
+    it('API should return 400', (done) => {
         chai.request(app)
         .post('/user')
         .type('application/json')
         .send({username: "123", password: "1234567"})
         .end((err, res) => {
-            res.should.have.status(500)
+            res.should.have.status(400)
             done()
         })
     })
 })
 
+describe('Empty request to /user', () => {
+    it('API should return 400', (done) => {
+        chai.request(app)
+        .post('/user')
+        .end((err, res) => {
+            res.should.have.status(400)
+            done()
+        })
+    })
+})
