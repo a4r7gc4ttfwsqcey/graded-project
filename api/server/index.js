@@ -1,10 +1,10 @@
 require('dotenv').config()
+const db = require('./utils/db')
 const express = require('express')
 const cors = require('cors')
 const app = express()
-const db = require('./utils/db')
 
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
     try{
         return res.json({
             message: 'API'
@@ -15,9 +15,18 @@ app.get('/', function(req, res) {
         })
     }
 })
+app.post('/user', (req, res) => {
+    
+})
+app.patch('/users', (req, res) => {
+    
+})
+app.delete('/users', (req, res) => {
+    
+})
 app.use(cors())
 app.listen(5000, function() {
     console.log('server started at port 5000')
 })
 
-module.exports = app
+exports = app
