@@ -2,14 +2,13 @@ const mongoose = require('mongoose')
 
 const postingSchema = mongoose.Schema({
     id: {
-        type: Number,
+        type: String,
         required: [true],
         index: true
     },
     username: {
         type: String,
         required: [true],
-        index: true
     },
     title: {
         type: String,
@@ -28,16 +27,16 @@ const postingSchema = mongoose.Schema({
         required: [true]
     },
     image1: {
-        data: Buffer, contentType: String
+        type: String
     },
     image2: {
-        data: Buffer, contentType: String
+        type: String
     },
     image3: {
-        data: Buffer, contentType: String
+        type: String
     },
     image4: {
-        data: Buffer, contentType: String
+        type: String
     },
     price: {
         type: Number,
