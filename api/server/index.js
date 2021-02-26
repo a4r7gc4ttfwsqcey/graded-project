@@ -10,6 +10,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const auth = require('./middlewares/auth_jwt')
 const uuid = require('uuid');
+const { startSession } = require('./models/user')
 
 app.use(bodyparser.json())
 app.get('/', (req, res) => {
@@ -149,7 +150,30 @@ app.delete('/postings/:id', auth(true), async (req, res) => {
     }
 })
 app.get('/search', async (req, res) => {
-
+    try {
+        if (!req.query.category && !req.query.location && !req.query.date ) {
+            const allpostings = await Posting.find({})
+            return res.status(200).json(allpostings)
+        } else {
+            if (req.query.date == 1){
+                const filtered = await Posting.find({category: {$regex: req.query.category}, location: {$regex: req.query.location}, createdAt: {$gt: new Date().setHours(00,00,00)}})
+                return res.status(200).json(filtered)
+            } else if (req.query.date == 7) {
+                const filtered = await Posting.find({category: {$regex: req.query.category}, location: {$regex: req.query.location}, createdAt: {$gt: new Date(Date.now() - 604800000).setHours(00,00,00)}})
+                return res.status(200).json(filtered)
+            } else if (req.query.date == 30) {
+                const filtered = await Posting.find({category: {$regex: req.query.category}, location: {$regex: req.query.location}, createdAt: {$gt: new Date(Date.now() - 2419200000).setHours(00,00,00)}})
+                return res.status(200).json(filtered)
+            } else {
+                const filtered = await Posting.find({category: {$regex: req.query.category}, location: {$regex: req.query.location}})
+                return res.status(200).json(filtered)
+            }
+        }
+    } catch (e) {
+        return res.status(500).json({
+            message: 'Internal Server Error: Unknown error occurred'
+        })
+    }
 })
 app.use(cors())
 app.listen(5000, function() {
