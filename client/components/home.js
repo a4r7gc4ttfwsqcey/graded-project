@@ -31,7 +31,7 @@ const Home = () => {
         <Link to="/new">
           <Text style={styles.buttonStyle}>Create a new posting</Text>
         </Link>
-        <Link to="/new">
+        <Link to="/filter">
           <Text style={styles.buttonStyle}>Filter visible postings</Text>
         </Link>
       </View>

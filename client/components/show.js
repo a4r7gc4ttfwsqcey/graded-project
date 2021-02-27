@@ -38,7 +38,6 @@ const Show = () => {
       return "Local pickup only";
     }
   };
-  console.log(responseData);
   if (state) {
     return (
       <View style={styles.container}>
