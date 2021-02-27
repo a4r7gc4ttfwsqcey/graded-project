@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, useHistory } from "react-router-native";
-import { ScrollView, View, Text, Image, StyleSheet } from "react-native";
+import { ScrollView, View,  Image, StyleSheet } from "react-native";
+import { Text } from 'react-native-paper';
 import axios from "axios";
 import { useSelector } from "react-redux";
 const Show = () => {
@@ -61,6 +62,9 @@ const Show = () => {
   } else {
     return (
       <ScrollView style={styles.container}>
+      <Link to="/">
+        <Text style={styles.logoStyle}>LocalMarket</Text>
+      </Link>
         <View>
           <Text style={styles.title}>{responseData.title}</Text>
           <Text style={styles.price}>{responseData.price} EUR</Text>
@@ -166,6 +170,13 @@ const styles = StyleSheet.create({
   price: {
     fontWeight: "bold",
     fontSize: 16,
+  },
+  logoStyle: {
+    color: "blue",
+    fontSize: 32,
+    fontWeight: "bold",
+    textAlign: "center",
+    backgroundColor: "white",
   },
   buttonStyle: {
     color: "white",

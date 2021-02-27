@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import {
-  TextInput,
   View,
   StyleSheet,
   ScrollView,
-  Text,
   Switch,
   Alert,
 } from "react-native";
+import { Text, TextInput } from 'react-native-paper';
 import axios from "axios";
 import { authenticate } from "../actions";
 import { useParams, Link } from "react-router-native";
@@ -126,44 +125,44 @@ const Edit = () => {
   } else {
     return (
       <ScrollView style={styles.container}>
-        <Text>Edit posting</Text>
+        <Text>Edit posting (* = required field)</Text>
         <Text style={styles.buttonStyle} onPress={() => setOlddata()}>
           Fill with existing data
         </Text>
         <View>
-          <Text>Title</Text>
+          <Text>Title*</Text>
           <TextInput
             style={styles.textinput}
             value={title}
             onChangeText={(title) => onChangeTitle(title)}
           />
-          <Text>Description</Text>
+          <Text>Description*</Text>
           <TextInput
             multiline={true}
             value={desc}
             style={styles.textinputlarge}
             onChangeText={(desc) => onChangeDesc(desc)}
           />
-          <Text>Category (e.g. Fashion, Electronics, Books, ...)</Text>
+          <Text>Category* (e.g. Fashion, Electronics, Books, ...)</Text>
           <TextInput
             style={styles.textinput}
             value={category}
             onChangeText={(category) => onChangeCategory(category)}
           />
-          <Text>Location (e.g. Oulu)</Text>
+          <Text>Location* (e.g. Oulu)</Text>
           <TextInput
             style={styles.textinput}
             value={location}
             onChangeText={(location) => onChangeLocation(location)}
           />
-          <Text>New asking price in Euros (€)</Text>
+          <Text>New asking price in Euros (€)*</Text>
           <TextInput
             style={styles.textinput}
             textContentType={"oneTimeCode"}
             value={pricestr}
             onChangeText={(price) => onChangePrice(price)}
           />
-          <Text>Contact details (Publicly shown)</Text>
+          <Text>Contact details* (Publicly shown)</Text>
           <TextInput
             style={styles.textinput}
             value={contact}

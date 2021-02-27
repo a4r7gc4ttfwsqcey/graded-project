@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList, Text, Image } from "react-native";
+import { View, StyleSheet, FlatList, Image } from "react-native";
+import { Text } from 'react-native-paper';
 import _ from "lodash";
 import axios from "axios";
 import { Link } from "react-router-native";

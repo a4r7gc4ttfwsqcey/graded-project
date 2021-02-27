@@ -1,5 +1,6 @@
 import React from "react";
-import { TextInput, View, StyleSheet, FlatList, Text } from "react-native";
+import { View, StyleSheet, FlatList} from "react-native";
+import { Text, TextInput } from 'react-native-paper';
 import axios from "axios";
 import { authenticate } from "../actions";
 import { Link } from "react-router-native";

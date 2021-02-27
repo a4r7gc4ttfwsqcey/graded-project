@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
-  TextInput,
   View,
   StyleSheet,
   ScrollView,
-  Text,
   Switch,
 } from "react-native";
+import { Text, TextInput } from 'react-native-paper';
 import axios from "axios";
 import { authenticate } from "../actions";
 import { Link } from "react-router-native";
@@ -68,7 +67,10 @@ const New = () => {
       .catch((err) => {
         if (err.response.status == 401) {
           onSetStatus("Error: You need an account to create postings");
-        } else {
+        } else if (err.response.status == 400) {
+          onSetStatus("Error: Please fill in all the required fields (*)")
+        }
+        else {
           onSetStatus("Error: Unknown error occurred");
         }
       });
@@ -92,35 +94,35 @@ const New = () => {
   } else {
     return (
       <ScrollView style={styles.container}>
-        <Text>Create posting</Text>
+        <Text>Create posting (* = required field)</Text>
         <View>
-          <Text>Title</Text>
+          <Text>Title*</Text>
           <TextInput
             style={styles.textinput}
             onChangeText={(title) => onChangeTitle(title)}
           />
-          <Text>Description</Text>
+          <Text>Description*</Text>
           <TextInput
             multiline={true}
             style={styles.textinputlarge}
             onChangeText={(desc) => onChangeDesc(desc)}
           />
-          <Text>Category (e.g. Fashion, Electronics, Books, ...)</Text>
+          <Text>Category* (e.g. Fashion, Electronics, Books, ...)</Text>
           <TextInput
             style={styles.textinput}
             onChangeText={(category) => onChangeCategory(category)}
           />
-          <Text>Location (e.g. Oulu)</Text>
+          <Text>Location* (e.g. Oulu)</Text>
           <TextInput
             style={styles.textinput}
             onChangeText={(location) => onChangeLocation(location)}
           />
-          <Text>Asking price in Euros (€)</Text>
+          <Text>Asking price in Euros (€)*</Text>
           <TextInput
             style={styles.textinput}
             onChangeText={(price) => onChangePrice(price)}
           />
-          <Text>Contact details (Publicly shown)</Text>
+          <Text>Contact details* (Publicly shown)</Text>
           <TextInput
             style={styles.textinput}
             onChangeText={(contact) => onChangeContact(contact)}

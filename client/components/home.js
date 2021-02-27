@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import { Redirect, Link } from "react-router-native";
+import { Text } from 'react-native-paper';
 import List from "./list";
 import axios from "axios";
 const Home = () => {
@@ -27,6 +28,9 @@ const Home = () => {
   if (loggedIn || isGuest) {
     return (
       <View style={styles.container}>
+      <Link to="/">
+        <Text style={styles.logoStyle}>LocalMarket</Text>
+      </Link>
         <List />
         <Link to="/new">
           <Text style={styles.buttonStyle}>Create a new posting</Text>
@@ -72,8 +76,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    alignContent: 'center',
+    marginTop: 30,
   },
   buttonStyle: {
     color: "white",
@@ -85,6 +89,13 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     backgroundColor: "#2196F3",
   },
+  logoStyle: {
+    color: "blue",
+    fontSize: 32,
+    fontWeight: "bold",
+    textAlign: "center",
+    backgroundColor: "white",
+  },
   status: {
     color: "red",
     fontSize: 16,
@@ -93,6 +104,7 @@ const styles = StyleSheet.create({
     color: "blue",
     fontWeight: "bold",
     fontSize: 24,
+    alignContent: "center",
     marginVertical: 25,
   },
 });
