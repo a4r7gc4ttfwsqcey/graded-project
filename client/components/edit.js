@@ -18,7 +18,7 @@ const Edit = () => {
   let [responseData, setResponseData] = React.useState("");
   const fetchData = () => {
     axios
-      .get(`http://192.168.1.157:5000/postings/${id}`)
+      .get(`https://apiproxy.archi.fi/postings/${id}`)
       .then((res) => {
         setResponseData(res.data);
       })
@@ -80,7 +80,7 @@ const Edit = () => {
   };
   const handlePatch = () => {
     axios
-      .patch(`http://192.168.1.157:5000/postings/${id}`, {
+      .patch(`https://apiproxy.archi.fi/postings/${id}`, {
         title,
         desc,
         category,

@@ -32,7 +32,7 @@ const List = () => {
   let [responseData, setResponseData] = React.useState("");
   const fetchData = () => {
     axios
-      .get(`http://192.168.1.157:5000/search`)
+      .get(`https://apiproxy.archi.fi/search`)
       .then((res) => {
         setResponseData(res.data);
       })

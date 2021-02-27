@@ -37,7 +37,7 @@ const Filter = () => {
   let [responseData, setResponseData] = React.useState("");
   const handleQuery = () => {
     axios
-    .get(`http://192.168.1.157:5000/search?category=${category}&location=${location}&date=${checked}`)
+    .get(`https://apiproxy.archi.fi/search?category=${category}&location=${location}&date=${checked}`)
     .then((res) => {
       setResponseData(res.data);
       setState('list')

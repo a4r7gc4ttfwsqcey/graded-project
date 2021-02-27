@@ -1,0 +1,547 @@
+openapi: 3.0.0
+info:
+  title: API for
+  version: '1.0'
+  description: API
+  contact:
+    name: Contact
+    email: contact@archi.fi
+    url: 'https://cdn.archi.fi/contact'
+  termsOfService: 'https://cdn.archi.fi/tos'
+servers:
+  - url: 'https://apiproxy.archi.fi'
+    description: Public Server
+paths:
+  /posting:
+    post:
+      summary: ''
+      operationId: post-posting
+      responses:
+        '201':
+          description: 'Created: Posting created successfully'
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                  - message
+              examples:
+                example-1:
+                  value:
+                    message: 'Created: Posting created successfully'
+        '400':
+          description: 'Bad Request: Invalid data'
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                  - message
+              examples:
+                example-1:
+                  value:
+                    message: 'Bad request: Invalid data'
+        '500':
+          description: 'Internal Server Error: Unknown error occurred'
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                  - message
+              examples:
+                example-1:
+                  value:
+                    message: 'Internal Server Error: Unknown error occurred'
+      description: Creates a new posting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Posting'
+      security:
+        - JWT: []
+  '/postings/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get single posting details
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Posting'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                  - message
+              examples:
+                example-1:
+                  value:
+                    message: 'Internal Server Error: Unknown error occurred'
+      operationId: get-postings-postingId
+      description: Get posting info
+      security: []
+    patch:
+      summary: Update posting with new data
+      operationId: patch-postings-postingId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                  - message
+              examples:
+                example-1:
+                  value:
+                    message: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                  - message
+              examples:
+                example-1:
+                  value:
+                    message: Unauthorized
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                  - message
+              examples:
+                example-1:
+                  value:
+                    message: 'Internal Server Error: Unknown error occurred'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Posting'
+        description: Updated information
+      description: Update posting
+      security:
+        - JWT: []
+    delete:
+      summary: Delete single posting
+      operationId: delete-postings-postingId
+      responses:
+        '200':
+          description: 'OK: Deleted'
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                  - message
+              examples:
+                example-1:
+                  value:
+                    message: 'OK: Deleted'
+        '401':
+          description: 'Unauthorized: Invalid credentials'
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                  - message
+              examples:
+                example-1:
+                  value:
+                    message: 'Unauthorized: Invalid credentials'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                  - message
+              examples:
+                example-1:
+                  value:
+                    message: 'Internal Server Error: Unknown error occurred'
+      description: Delete posting
+      security:
+        - JWT: []
+  /register:
+    post:
+      summary: Register a new user
+      operationId: post-register
+      responses:
+        '201':
+          description: 'Created: User account created successfully'
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                  - message
+              examples:
+                example-1:
+                  value:
+                    message: 'Created: User account created successfully'
+        '400':
+          description: 'Bad request: Invalid data'
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                  - message
+              examples:
+                example-1:
+                  value:
+                    message: 'Bad request: Invalid data'
+      description: Register an user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  minLength: 4
+                  maxLength: 32
+                password:
+                  type: string
+                  format: password
+              required:
+                - username
+                - password
+            examples:
+              example-1:
+                value:
+                  username: testuser1
+                  password: Password1!
+        description: ''
+      security: []
+      parameters: []
+    parameters: []
+  /login:
+    post:
+      summary: Log in an existing user
+      operationId: post-login
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  auth:
+                    type: string
+              examples:
+                example-1:
+                  value:
+                    auth: >-
+                      eyJhbGciOiJIUzI1NiJ9.YWFhYWFhYWE.go38Jwb3JRtGAkop8zAJEiAzdX2Lzxh02n64fxJFvdc
+        '400':
+          description: 'Bad request: Invalid input'
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                  - message
+              examples:
+                example-1:
+                  value:
+                    message: 'Bad request: Invalid input'
+        '401':
+          description: 'Unauthorized: Invalid credentials'
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                  - message
+              examples:
+                example-1:
+                  value:
+                    message: 'Unauthorized: Invalid credentials'
+        '500':
+          description: 'Internal Server Error: Unknown error occurred'
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                  - message
+              examples:
+                example-1:
+                  value:
+                    message: 'Internal Server Error: Unknown error occurred'
+      description: Log in an existing user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  minLength: 4
+                  maxLength: 32
+                password:
+                  type: string
+                  format: password
+              required:
+                - username
+                - password
+            examples:
+              example-1:
+                value:
+                  username: myamazingaccount
+                  password: pa$$word
+        description: User credentials
+      security: []
+  /search:
+    get:
+      summary: Get and filter postings
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Posting'
+              examples: {}
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                  - message
+              examples:
+                example-1:
+                  value:
+                    message: Internal Server Error
+      operationId: get-search
+      description: >-
+        Return all postings, or return filtered postings if query parameters
+        present
+      parameters:
+        - schema:
+            type: string
+            example: Fashion
+          in: query
+          name: category
+          description: 'Filter by category, match by regex'
+          allowEmptyValue: true
+        - schema:
+            type: string
+            example: Helsinki
+          in: query
+          name: location
+          description: 'Filter by category, match by regex'
+          allowEmptyValue: true
+        - schema:
+            type: string
+            example: '7'
+          in: query
+          name: date
+          description: 'Filter by date, 3 different options'
+          allowEmptyValue: true
+      security: []
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      description: Model for user accounts
+      x-examples:
+        example-1:
+          username: string
+          password: string
+      properties:
+        username:
+          type: string
+          minLength: 4
+          maxLength: 32
+        password:
+          type: string
+          minLength: 8
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - username
+        - password
+    Posting:
+      title: Posting
+      type: object
+      description: Model for postings
+      x-examples:
+        example-1:
+          id: '0'
+          title: string
+          desc: string
+          category: string
+          location: string
+          image-1: string
+          image-2: string
+          image-3: string
+          image-4: string
+          price: 0
+          createDate: string
+          updateDate: string
+          type: true
+          contact: string
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        desc:
+          type: string
+        category:
+          type: string
+        location:
+          type: string
+        image1:
+          type: string
+        image2:
+          type: string
+        image3:
+          type: string
+        image4:
+          type: string
+        price:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        type:
+          type: boolean
+        contact:
+          type: string
+      required:
+        - id
+        - title
+        - desc
+        - category
+        - location
+        - price
+        - type
+        - contact
+  securitySchemes:
+    JWT:
+      type: http
+      scheme: bearer
+security:
+  - JWT: []

@@ -48,7 +48,7 @@ const New = () => {
   };
   const handlePost = () => {
     axios
-      .post(`http://192.168.1.157:5000/posting`, {
+      .post(`https://apiproxy.archi.fi/posting`, {
         title,
         desc,
         category,

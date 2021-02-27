@@ -11,7 +11,7 @@ const Show = () => {
   let [responseData, setResponseData] = React.useState("");
   const fetchData = () => {
     axios
-      .get(`http://192.168.1.157:5000/postings/${id}`)
+      .get(`https://apiproxy.archi.fi/postings/${id}`)
       .then((res) => {
         setResponseData(res.data);
       })
@@ -24,7 +24,7 @@ const Show = () => {
   }, []);
   const handleDelete = (id) => {
     axios
-      .delete(`http://192.168.1.157:5000/postings/${id}`)
+      .delete(`https://apiproxy.archi.fi/postings/${id}`)
       .then(() => {
         setState("Posting deleted");
       })

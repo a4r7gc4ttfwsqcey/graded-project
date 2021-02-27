@@ -9,7 +9,7 @@ const Home = () => {
   const [serverStatus, setServerStatus] = useState("Offline");
   const ServerStatus = () => {
     axios
-      .get(`http://192.168.1.157:5000/`)
+      .get(`https://apiproxy.archi.fi/`)
       .then((res) => {
         setServerStatus(res.data.message);
       })

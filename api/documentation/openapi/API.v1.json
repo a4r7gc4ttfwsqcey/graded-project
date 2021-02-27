@@ -1,19 +1,20 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API",
+    "title": "API for",
     "version": "1.0",
     "description": "API",
     "contact": {
-      "name": "Name",
-      "url": "URL",
-      "email": "email@ema.il"
+      "name": "Contact",
+      "email": "contact@archi.fi",
+      "url": "https://cdn.archi.fi/contact"
     },
-    "termsOfService": "http://localhost:3000/tos"
+    "termsOfService": "https://cdn.archi.fi/tos"
   },
   "servers": [
     {
-      "url": "http://localhost:5000"
+      "url": "https://apiproxy.archi.fi",
+      "description": "Public Server"
     }
   ],
   "paths": {
@@ -23,16 +24,85 @@
         "operationId": "post-posting",
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Created: Posting created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "Created: Posting created successfully"
+                    }
+                  }
+                }
+              }
+            }
           },
           "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
+            "description": "Bad Request: Invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "Bad request: Invalid data"
+                    }
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error: Unknown error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "Internal Server Error: Unknown error occurred"
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "description": "Creates a new posting",
@@ -44,22 +114,27 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       }
     },
-    "/postings/{postingId}": {
+    "/postings/{id}": {
       "parameters": [
         {
           "schema": {
             "type": "string"
           },
-          "name": "postingId",
+          "name": "id",
           "in": "path",
           "required": true
         }
       ],
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "Get single posting details",
         "tags": [],
         "responses": {
           "200": {
@@ -72,15 +147,40 @@
               }
             }
           },
-          "404": {
-            "description": "Not Found"
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "Internal Server Error: Unknown error occurred"
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "operationId": "get-postings-postingId",
-        "description": "Get posting info"
+        "description": "Get posting info",
+        "security": []
       },
       "patch": {
-        "summary": "",
+        "summary": "Update posting with new data",
         "operationId": "patch-postings-postingId",
         "responses": {
           "200": {
@@ -88,19 +188,81 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Posting"
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "OK"
+                    }
+                  }
                 }
               }
             }
           },
           "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "Internal Server Error: Unknown error occurred"
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -113,35 +275,165 @@
           },
           "description": "Updated information"
         },
-        "description": "Update posting"
+        "description": "Update posting",
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       },
       "delete": {
-        "summary": "",
+        "summary": "Delete single posting",
         "operationId": "delete-postings-postingId",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK: Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "OK: Deleted"
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized: Invalid credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "Unauthorized: Invalid credentials"
+                    }
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "Internal Server Error: Unknown error occurred"
+                    }
+                  }
+                }
+              }
+            }
           }
         },
-        "description": "Delete posting"
+        "description": "Delete posting",
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       }
     },
     "/register": {
       "post": {
-        "summary": "Register",
+        "summary": "Register a new user",
         "operationId": "post-register",
         "responses": {
           "201": {
-            "description": "Created: User account created successfully"
+            "description": "Created: User account created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "Created: User account created successfully"
+                    }
+                  }
+                }
+              }
+            }
           },
           "400": {
-            "description": "Bad request: Invalid data"
+            "description": "Bad request: Invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "Bad request: Invalid data"
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "description": "Register an user",
@@ -189,16 +481,107 @@
         "operationId": "post-login",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "auth": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "auth": "eyJhbGciOiJIUzI1NiJ9.YWFhYWFhYWE.go38Jwb3JRtGAkop8zAJEiAzdX2Lzxh02n64fxJFvdc"
+                    }
+                  }
+                }
+              }
+            }
           },
           "400": {
-            "description": "Bad request: Invalid input"
+            "description": "Bad request: Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "Bad request: Invalid input"
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
-            "description": "Unauthorized: Invalid credentials"
+            "description": "Unauthorized: Invalid credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "Unauthorized: Invalid credentials"
+                    }
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error: Unknown error occurred"
+            "description": "Internal Server Error: Unknown error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "Internal Server Error: Unknown error occurred"
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "description": "Log in an existing user",
@@ -222,15 +605,25 @@
                   "username",
                   "password"
                 ]
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "username": "myamazingaccount",
+                    "password": "pa$$word"
+                  }
+                }
               }
             }
-          }
-        }
+          },
+          "description": "User credentials"
+        },
+        "security": []
       }
     },
     "/search": {
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "Get and filter postings",
         "tags": [],
         "responses": {
           "200": {
@@ -243,39 +636,74 @@
                       "$ref": "#/components/schemas/Posting"
                     }
                   ]
-                }
+                },
+                "examples": {}
               }
             }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "Internal Server Error"
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "operationId": "get-search",
-        "description": "Return all postings",
+        "description": "Return all postings, or return filtered postings if query parameters present",
         "parameters": [
           {
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "Fashion"
             },
             "in": "query",
-            "name": "category"
+            "name": "category",
+            "description": "Filter by category, match by regex",
+            "allowEmptyValue": true
           },
           {
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "Helsinki"
             },
             "in": "query",
-            "name": "location"
+            "name": "location",
+            "description": "Filter by category, match by regex",
+            "allowEmptyValue": true
           },
           {
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "7"
             },
             "in": "query",
-            "name": "date"
+            "name": "date",
+            "description": "Filter by date, 3 different options",
+            "allowEmptyValue": true
           }
-        ]
+        ],
+        "security": []
       }
     }
   },
@@ -284,7 +712,7 @@
       "User": {
         "title": "User",
         "type": "object",
-        "description": "",
+        "description": "Model for user accounts",
         "x-examples": {
           "example-1": {
             "username": "string",
@@ -298,7 +726,16 @@
             "maxLength": 32
           },
           "password": {
-            "type": "string"
+            "type": "string",
+            "minLength": 8
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -309,10 +746,10 @@
       "Posting": {
         "title": "Posting",
         "type": "object",
-        "description": "",
+        "description": "Model for postings",
         "x-examples": {
           "example-1": {
-            "id": 0,
+            "id": "0",
             "title": "string",
             "desc": "string",
             "category": "string",
@@ -330,7 +767,8 @@
         },
         "properties": {
           "id": {
-            "type": "integer"
+            "type": "string",
+            "format": "uuid"
           },
           "title": {
             "type": "string"
@@ -359,11 +797,13 @@
           "price": {
             "type": "integer"
           },
-          "createDate": {
-            "type": "string"
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
           },
-          "updateDate": {
-            "type": "string"
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
           },
           "type": {
             "type": "boolean"
@@ -379,13 +819,21 @@
           "category",
           "location",
           "price",
-          "createDate",
-          "updateDate",
           "type",
           "contact"
         ]
       }
     },
-    "securitySchemes": {}
-  }
+    "securitySchemes": {
+      "JWT": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "JWT": []
+    }
+  ]
 }

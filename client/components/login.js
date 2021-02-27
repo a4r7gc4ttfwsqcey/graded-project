@@ -10,7 +10,7 @@ const Login = () => {
   const [password, onChangePassword] = React.useState("Password");
   const handleLogin = () => {
     axios
-      .post(`http://192.168.1.157:5000/login`, { username, password })
+      .post(`https://apiproxy.archi.fi/login`, { username, password })
       .then((res) => {
         authenticate({ auth: res.data.auth, username: username });
         onSetStatus("Login success.");
@@ -21,7 +21,7 @@ const Login = () => {
   };
   const handleRegister = () => {
     axios
-      .post(`http://192.168.1.157:5000/register`, { username, password })
+      .post(`https://apiproxy.archi.fi/register`, { username, password })
       .catch((error) => {
         onSetStatus("Network error.");
       });
