@@ -3,8 +3,22 @@ import { useSelector } from "react-redux";
 import { View, Text, StyleSheet, Alert } from "react-native";
 import { Redirect, Link } from "react-router-native";
 import List from "./list";
-
+import axios from "axios";
 const Home = () => {
+  const [serverStatus, setServerStatus] = useState('Offline');
+  const ServerStatus = () => {
+    axios
+      .get(`http://192.168.1.157:5000/`)
+      .then((res) => {
+        setServerStatus(res.data.message);
+      })
+      .catch((err) => {
+        setServerStatus("Error")
+      });
+  };
+  useEffect(() => {
+    ServerStatus();
+  }, []);
   const loggedIn = useSelector((state) => state.auth);
   const [isGuest, setIsGuest] = useState(false);
   const handleGuest = () => {
@@ -25,7 +39,8 @@ const Home = () => {
   } else {
     return (
       <View style={styles.container}>
-        <Text>LocalMarket</Text>
+        <Text style={styles.status}>Service status: {serverStatus}</Text>
+        <Text style={styles.welcome}>LocalMarket</Text>
         <Text>Sell and buy items easily in your hometown</Text>
         <Text
           style={styles.buttonStyle}
@@ -69,5 +84,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderRadius: 2,
     backgroundColor: "#2196F3",
+  },
+  status: {
+    color: "red",
+    fontSize: 16,
+  },
+  welcome: {
+    color: "blue",
+    fontWeight: "bold",
+    fontSize: 24,
+    marginVertical: 25,
   },
 });

@@ -2,7 +2,8 @@ import React from "react";
 import Home from "./components/home";
 import List from "./components/list";
 import Login from "./components/login";
-import View from "./components/login";
+import Show from "./components/show";
+import Edit from "./components/edit";
 import { NativeRouter, Switch, Route } from "react-router-native";
 import { Provider } from "react-redux";
 import store from "./reducers/main";
@@ -17,8 +18,11 @@ export default function App() {
           <Route path="/home" exact>
             <Home />
           </Route>
-          <Route path="/view" exact>
-            <View />
+          <Route path="/show/:id">
+            <Show />
+          </Route>
+          <Route path="/edit/:id">
+            <Edit />
           </Route>
           <Route path="/login" exact>
             <Login />

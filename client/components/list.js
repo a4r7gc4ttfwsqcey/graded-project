@@ -5,7 +5,7 @@ import axios from "axios";
 import { Link } from "react-router-native";
 
 const Item = ({ id, title, price, image1 }) => (
-  <Link to={`/view/${id}`}>
+  <Link to={`/show/${id}`}>
     <View style={styles.item}>
       <View style={{ marginHorizontal: 10 }}>
         <Image
