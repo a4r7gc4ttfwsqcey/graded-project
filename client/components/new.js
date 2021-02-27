@@ -174,6 +174,9 @@ const New = () => {
         <Text style={styles.buttonStyle} onPress={() => handlePost()}>
           CREATE
         </Text>
+        <Link to="/">
+          <Text style={styles.buttonStyle}>Cancel</Text>
+        </Link>
       </ScrollView>
     );
   }

@@ -28,7 +28,11 @@ const Show = () => {
         setState("Posting deleted");
       })
       .catch((err) => {
-        setState("Insufficient permissions");
+        if (err.response.status == 401) {
+          setState("Error: Insufficient permissions");
+        } else {
+          setState("Error: Unknown error occurred");
+        }
       });
   };
   let type = () => {
@@ -40,8 +44,15 @@ const Show = () => {
   };
   if (state) {
     return (
-      <View style={styles.container}>
-        <Text>{status}</Text>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "#fff",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text>{state}</Text>
         <Link to="/">
           <Text style={styles.buttonStyle}>Continue</Text>
         </Link>
@@ -119,7 +130,10 @@ const Show = () => {
           <Link to="/">
             <Text style={styles.buttonStyle}>Back</Text>
           </Link>
-          <Text style={styles.buttonStyle} onPress={() => handleDelete()}>
+          <Text
+            style={styles.buttonStyle}
+            onPress={() => handleDelete(responseData.id)}
+          >
             Delete
           </Text>
           <Link to={`/edit/${id}`}>

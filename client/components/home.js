@@ -5,7 +5,7 @@ import { Redirect, Link } from "react-router-native";
 import List from "./list";
 import axios from "axios";
 const Home = () => {
-  const [serverStatus, setServerStatus] = useState('Offline');
+  const [serverStatus, setServerStatus] = useState("Offline");
   const ServerStatus = () => {
     axios
       .get(`http://192.168.1.157:5000/`)
@@ -13,7 +13,7 @@ const Home = () => {
         setServerStatus(res.data.message);
       })
       .catch((err) => {
-        setServerStatus("Error")
+        setServerStatus("Error");
       });
   };
   useEffect(() => {
