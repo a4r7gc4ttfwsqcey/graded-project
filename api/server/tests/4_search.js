@@ -5,14 +5,13 @@ const app = require("../index.js");
 chai.use(chaihttp);
 chai.should();
 
-describe("Check for status 200 at /", () => {
-  it("API should return 200", (done) => {
+describe("/search", () => {
+  it("Should return list of postings", (done) => {
     chai
       .request(app)
-      .get("/")
+      .get("/search")
       .end((err, res) => {
         res.should.have.status(200);
-        res.body.should.be.a("object");
         done();
       });
   });

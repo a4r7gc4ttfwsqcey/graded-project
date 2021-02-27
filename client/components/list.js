@@ -1,48 +1,79 @@
-import React from 'react';
-import { View, StyleSheet, FlatList, Text } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, FlatList, Text, Image } from "react-native";
+import _ from "lodash";
+import axios from "axios";
+import { Link } from "react-router-native";
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-  },
-];
-
-const Item = ({ title }) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
-);
-
-const List = () => {
-    const renderItem = ({ item }) => (
-      <Item title={item.title} />
-    );
-  
-    return (
-      <View style={styles.container}>
-        <FlatList
-          data={DATA}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
+const Item = ({ id, title, price, image1 }) => (
+  <Link to={`/view/${id}`}>
+    <View style={styles.item}>
+      <View style={{ marginHorizontal: 10 }}>
+        <Image
+          style={{
+            width: 75,
+            height: 75,
+            borderWidth: 1,
+            borderColor: "black",
+          }}
+          source={{ uri: image1 }}
         />
       </View>
-    );
-  }
-  export default List;
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  });
+      <View>
+        <Text style={styles.title}>{title}</Text>
+      </View>
+      <View style={{ marginHorizontal: 10 }}>
+        <Text style={styles.price}>{price} EUR</Text>
+      </View>
+    </View>
+  </Link>
+);
+const List = () => {
+  let [responseData, setResponseData] = React.useState("");
+  const fetchData = () => {
+    axios
+      .get(`http://192.168.1.157:5000/search`)
+      .then((res) => {
+        setResponseData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const renderItem = ({ item }) => (
+    <Item
+      title={item.title}
+      price={item.price}
+      image1={item.image1}
+      id={item.id}
+    />
+  );
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={_.values(responseData)}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      />
+    </View>
+  );
+};
+export default List;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 30,
+  },
+  item: {
+    flexDirection: "row",
+    backgroundColor: "#eee",
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    fontSize: 16,
+  },
+});
